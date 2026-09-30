@@ -1,0 +1,1911 @@
+/* ==========================================================================
+   STYLE.CSS - LANDING PAGE GUTEMBERG AMORIM ADVOCACIA (GOLPES FINANCEIROS)
+   Identidade visual de luxo refinado, micro-animações, grid responsivo e 
+   preparado para campanhas de tráfego de alta conversão.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIÁVEIS CSS E DESIGN TOKENS
+   Define a paleta de cores de luxo, espaçamentos, tipografia e bordas 
+   seguindo rigorosamente a identidade visual do escritório.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Cores Principais Extraídas da Identidade Visual */
+  --primary: #081834;            /* Azul Marinho Nobre e Profundo */
+  --primary-light: #10264d;      /* Variação mais clara para gradientes */
+  --primary-dark: #040c1a;       /* Sombra profunda para contrastes */
+  --primary-foreground: #ffffff; /* Texto claro sobre fundo escuro */
+
+  /* Cores de Destaque (Teal / Esmeralda de Luxo) */
+  --accent: #189e92;             /* Tom esmeralda principal para CTAs */
+  --accent-hover: #158a7f;       /* Estado de hover do botão principal */
+  --accent-light: #33b8a8;       /* Teal iluminado para badges e destaques */
+  --accent-glow: rgba(24, 158, 146, 0.35); /* Brilho suave para botões */
+  --accent-foreground: #ffffff;  /* Texto sobre botão de destaque */
+
+  /* Superfícies e Fundos */
+  --background: #ffffff;         /* Fundo limpo para seções claras */
+  --foreground: #182433;         /* Cor principal para leitura de textos */
+  --card: #ffffff;               /* Fundo de cartões e módulos */
+  --card-foreground: #182433;    /* Texto dentro dos cartões */
+  --secondary: #f8f9fa;          /* Fundo sutil para alternância de seções */
+  --muted: #f1f3f5;              /* Fundo cinza suave para elementos neutros */
+  --muted-foreground: #5e6d7e;   /* Cinza médio para textos secundários */
+
+  /* Cores de Alerta e Status */
+  --destructive: #ef4444;        /* Vermelho para avisos de risco */
+  --destructive-bg: rgba(239, 68, 68, 0.08); /* Fundo sutil de alerta */
+  --gold: #d4af37;               /* Dourado para estrelas e selos */
+  --gold-bg: rgba(212, 175, 55, 0.1);
+
+  /* Linhas e Contornos */
+  --border: #dfe3e8;             /* Linha divisória sutil */
+  --border-focus: #189e92;       /* Linha ao focar em inputs */
+  --radius: 0.625rem;            /* 10px padrão para curvas modernas */
+  --radius-lg: 1rem;             /* 16px para cartões e modais */
+  --radius-pill: 9999px;         /* Botões e pílulas arredondadas */
+
+  /* Tipografia */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Sombras Sofisticadas */
+  --shadow-sm: 0 2px 8px rgba(8, 24, 52, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(8, 24, 52, 0.08), 0 4px 12px -2px rgba(8, 24, 52, 0.04);
+  --shadow-lg: 0 16px 36px -6px rgba(8, 24, 52, 0.12), 0 8px 16px -4px rgba(8, 24, 52, 0.06);
+  --shadow-card-hover: 0 20px 40px -10px rgba(8, 24, 52, 0.15);
+
+  /* Transições Fluídas */
+  --transition-fast: 0.18s ease-in-out;
+  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET GERAL E CONFIGURAÇÕES DE BASE
+   Normalização de margens, modelo de caixa e renderização nítida de fontes.
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--foreground);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  line-height: 1.6;
+  overflow-x: hidden;
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button, input, select, textarea {
+  font: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. ESTRUTURA DE LAYOUT E UTILITÁRIOS
+   Container centralizado, alinhamentos e espaçamentos padronizados.
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(24, 158, 146, 0.1);
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.section-badge.badge-white {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-badge.badge-danger {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--destructive);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.section-title.title-white {
+  color: #ffffff;
+}
+
+.section-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  max-width: 760px;
+  margin-bottom: 3rem;
+}
+
+.section-subtitle.subtitle-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-subtitle.subtitle-white {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* --------------------------------------------------------------------------
+   4. BOTÕES E ELEMENTOS DE CONVERSÃO (ELEMENTOR_BUTTON & GTM SAFE)
+   Padronização milimétrica de formato, altura, alinhamento flex e curvatura
+   em cápsula para botões de WhatsApp, Triagem de Caso e Ações da Landing Page.
+   -------------------------------------------------------------------------- */
+.elementor_button,
+.btn-primary,
+.btn-white,
+.btn-outline,
+.btn-outline-dark,
+.btn-triagem {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  font-family: inherit;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  min-height: 52px;
+  line-height: 1;
+  box-sizing: border-box;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+/* Regra Crítica: impede que spans, svgs e tags internas interceptem o clique no GTM */
+.elementor_button * {
+  pointer-events: none !important;
+}
+
+/* Alinhamento estrito e dimensões fixas dos ícones SVG internos dos botões */
+.elementor_button svg,
+.btn-primary svg,
+.btn-white svg,
+.btn-outline svg,
+.btn-triagem svg {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  max-width: 20px;
+  max-height: 20px;
+  flex-shrink: 0;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.btn-white svg {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  max-width: 22px;
+  max-height: 22px;
+}
+
+/* Botão Primário (Teal de Ação) */
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  padding: 0.95rem 2.1rem;
+  font-size: 0.975rem;
+  border: 1.5px solid var(--accent);
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(24, 158, 146, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Botão Branco de Alto Contraste */
+.btn-white {
+  background-color: #ffffff;
+  color: var(--primary);
+  padding: 0.95rem 2.1rem;
+  font-size: 0.975rem;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.btn-white:hover {
+  background-color: #f1f3f5;
+  border-color: #f1f3f5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.3);
+}
+
+/* Botão de Triagem de Caso e Variações Outline (Formato Cápsula Elegante e Ícone em Destaque) */
+.btn-triagem,
+.btn-outline {
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  padding: 0.95rem 2.1rem;
+  font-size: 0.975rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.btn-triagem svg,
+.btn-outline svg {
+  color: var(--accent-light);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-triagem:hover,
+.btn-outline:hover {
+  background: rgba(24, 158, 146, 0.18);
+  border-color: var(--accent-light);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(24, 158, 146, 0.35);
+}
+
+.btn-triagem:hover svg,
+.btn-outline:hover svg {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.btn-triagem:active,
+.btn-outline:active {
+  transform: translateY(0);
+}
+
+.btn-outline-dark {
+  border: 1.5px solid var(--border);
+  color: var(--foreground);
+  padding: 0.95rem 2rem;
+  font-size: 0.975rem;
+  background: #ffffff;
+}
+
+.btn-outline-dark:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   5. HEADER FIXO COM NAVEGAÇÃO E LOGO
+   Barra superior fixa que se recolhe suavemente e adiciona efeito blur
+   ao rolar a página para uma experiência premium.
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(8, 24, 52, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color var(--transition-normal), padding var(--transition-normal), box-shadow var(--transition-normal);
+  padding: 0.9rem 0;
+}
+
+.site-header.scrolled {
+  padding: 0.65rem 0;
+  background: rgba(8, 24, 52, 0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.header-logo img {
+  height: 38px;
+  width: auto;
+  transition: transform var(--transition-fast);
+}
+
+.header-logo:hover img {
+  transform: scale(1.02);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+  padding: 0.25rem 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width var(--transition-normal);
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.header-cta-btn {
+  padding: 0.6rem 1.35rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-pill);
+}
+
+/* Menu Mobile Toggle */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 991px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .header-nav {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: rgba(8, 24, 52, 0.98);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    gap: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+  }
+
+  .header-nav.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. HERO SECTION DE ALTO IMPACTO
+   Apresentação luxuosa com gradiente radial idêntico à referência,
+   prova social, copy voltada a golpes financeiros e gatilhos de urgência.
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+  overflow: hidden;
+  background-image: 
+    radial-gradient(circle at 15% 25%, rgba(24, 158, 146, 0.38), transparent 50%),
+    radial-gradient(circle at 85% 65%, rgba(24, 158, 146, 0.22), transparent 48%);
+}
+
+/* --------------------------------------------------------------------------
+   6. HERO SECTION DE ALTO IMPACTO (LAYOUT LIMPO, MINIMALISTA E DE ALTO LUXO)
+   Apresentação refinada com gradiente radial de prestígio, sem sobrecarga visual
+   ou elementos que poluam o foco do lead. Totalmente responsivo para mobile.
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding-top: 8.5rem;
+  padding-bottom: 5.5rem;
+  overflow: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(24, 158, 146, 0.28), transparent 55%),
+    radial-gradient(circle at 85% 75%, rgba(24, 158, 146, 0.15), transparent 45%),
+    radial-gradient(circle at 15% 85%, rgba(16, 38, 77, 0.6), transparent 50%);
+}
+
+/* Container Centralizado e Limpo para Foco Total em Conversão */
+.hero-container-clean {
+  max-width: 940px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Selo de Prova Social e Tempo de Atuação */
+.hero-social-proof {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.825rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-social-proof .stars {
+  color: #ffbc00;
+  letter-spacing: 2px;
+}
+
+.hero-social-proof .divider {
+  opacity: 0.35;
+}
+
+/* Título de Alto Impacto e Autoridade Jurídica */
+.hero-title {
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.hero-title em {
+  font-style: normal;
+  color: var(--accent-light);
+  display: inline-block;
+}
+
+/* Subtítulo Claro, Direto e Livre de Jargões Excessivos */
+.hero-description {
+  font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 800px;
+  margin: 0 auto 2.5rem auto;
+}
+
+/* Grupo de Ações de Alta Conversão (WhatsApp e Triagem) */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.15rem;
+  margin-bottom: 2.75rem;
+  width: 100%;
+}
+
+.hero-actions .btn-primary,
+.hero-actions .btn-triagem,
+.hero-actions .btn-outline {
+  min-height: 54px;
+  padding: 1rem 2.25rem;
+  font-size: 1rem;
+}
+
+.hero-actions .btn-triagem,
+.hero-actions .btn-outline {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-actions .btn-triagem:hover,
+.hero-actions .btn-outline:hover {
+  background: rgba(24, 158, 146, 0.2);
+  border-color: var(--accent-light);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(24, 158, 146, 0.35);
+}
+
+/* Barra de Credenciais Sóbria e Confiável */
+.hero-trust-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  width: 100%;
+  max-width: 660px;
+}
+
+.hero-trust-bar .divider {
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+/* Otimização Responsiva para Mobile (Smartphones e Tablets) */
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 6.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .hero-container-clean {
+    padding: 0 1rem;
+  }
+
+  .hero-social-proof {
+    font-size: 0.775rem;
+    padding: 0.4rem 0.9rem;
+    gap: 0.45rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 6.5vw, 2.35rem);
+    line-height: 1.25;
+    margin-bottom: 1.15rem;
+  }
+
+  .hero-description {
+    font-size: 0.975rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-outline {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .hero-trust-bar {
+    font-size: 0.775rem;
+    gap: 0.5rem;
+    padding-top: 1.25rem;
+    line-height: 1.5;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. FAIXA DE IDENTIFICAÇÃO RÁPIDA DE GOLPES (STAT BAR / QUICK TICKER)
+   Seis ícones explicativos idênticos ao padrão do modelo de referência.
+   -------------------------------------------------------------------------- */
+.quick-id-bar {
+  background-color: var(--secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 0;
+}
+
+.quick-id-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .quick-id-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .quick-id-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.quick-id-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.quick-id-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.quick-id-item:hover .quick-id-icon {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.quick-id-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* --------------------------------------------------------------------------
+   8. ÁREAS DE ATUAÇÃO / TIPOS DE GOLPES (SERVIÇOS)
+   Cards minuciosamente desenhados para cada golpe especificado.
+   -------------------------------------------------------------------------- */
+.services-section {
+  background-color: var(--background);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+@media (max-width: 991px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  transition: background-color var(--transition-fast);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(24, 158, 146, 0.4);
+}
+
+.service-card:hover::before {
+  background-color: var(--accent);
+}
+
+.service-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(24, 158, 146, 0.1);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.service-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+
+.service-card p {
+  font-size: 0.925rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.service-legal-basis {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--accent);
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. SOBRE O DR. GUTEMBERG AMORIM (F SOBRE)
+   Apresentação da autoridade com ênfase na experiência como Ex-Banco do Brasil
+   e mercado de fundos de investimento.
+   -------------------------------------------------------------------------- */
+.about-section {
+  background-color: var(--secondary);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 4rem;
+}
+
+@media (max-width: 991px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.about-lead {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--foreground);
+  margin-bottom: 1.25rem;
+}
+
+.about-lead strong {
+  color: var(--accent);
+}
+
+.about-text {
+  font-size: 0.975rem;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.about-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.about-metric-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+}
+
+.about-metric-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.metric-number {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.about-metric-icon {
+  color: var(--accent);
+  margin: 0 auto 0.5rem auto;
+}
+
+/* --------------------------------------------------------------------------
+   10. DIFERENCIAIS COMPETITIVOS
+   O que torna a estratégia do escritório única frente às grandes bancas.
+   -------------------------------------------------------------------------- */
+.differentials-section {
+  background-color: var(--background);
+}
+
+.differentials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+@media (max-width: 991px) {
+  .differentials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .differentials-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.differential-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 1.75rem;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.differential-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+
+.diff-step-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  opacity: 0.4;
+  margin-bottom: 0.5rem;
+}
+
+.differential-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+
+.differential-card p {
+  font-size: 0.925rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   11. AMPARO JURÍDICO & SÚMULA 479 STJ
+   Explicação da responsabilidade objetiva dos bancos com visual de autoridade.
+   -------------------------------------------------------------------------- */
+.legal-section {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.legal-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+@media (max-width: 991px) {
+  .legal-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.sumula-quote-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.75rem 0 2rem 0;
+}
+
+.sumula-quote-box h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-light);
+  margin-bottom: 0.5rem;
+}
+
+.sumula-quote-box p {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.6;
+}
+
+.legal-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.checklist-item svg {
+  color: var(--accent-light);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.checklist-item span {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   12. FASES DO ATENDIMENTO (COMO FUNCIONA)
+   4 passos simples e transparentes até a recuperação dos valores.
+   -------------------------------------------------------------------------- */
+.process-section {
+  background-color: var(--secondary);
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.process-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal);
+}
+
+.process-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.process-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem auto;
+}
+
+.process-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+  color: var(--foreground);
+}
+
+.process-card p {
+  font-size: 0.885rem;
+  color: var(--muted-foreground);
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   13. SEÇÃO EMBUTIDA DO CHATBOT DE TRIAGEM
+   Área dedicada onde o usuário pode realizar a triagem completa no próprio site.
+   -------------------------------------------------------------------------- */
+.chatbot-section {
+  background-color: var(--background);
+}
+
+.chatbot-wrapper {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   14. CTA WHATSAPP DE ALTA CONVERSÃO
+   Banner com gradiente de luxo azul-marinho convidando para ação imediata.
+   -------------------------------------------------------------------------- */
+.cta-banner-section {
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary) 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 5.5rem 1.5rem;
+}
+
+.cta-banner-container {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.cta-banner-title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.cta-banner-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.cta-banner-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   15. FAQ (PERGUNTAS FREQUENTES COM ACORDEÃO)
+   Dúvidas comuns respondidas com clareza para quebrar objeções em campanhas.
+   -------------------------------------------------------------------------- */
+.faq-section {
+  background-color: var(--secondary);
+}
+
+.faq-container {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.faq-item {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.faq-item:hover {
+  border-color: rgba(24, 158, 146, 0.5);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--accent);
+  transition: transform var(--transition-normal);
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal), padding var(--transition-normal);
+  padding: 0 1.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.faq-item.active .faq-answer {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   16. LOCALIZAÇÃO E GOOGLE MAPS
+   Endereço físico de alto padrão em Goiânia com mapa interativo incorporado.
+   -------------------------------------------------------------------------- */
+.location-section {
+  background-color: var(--background);
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 991px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.location-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.location-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.location-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.location-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(24, 158, 146, 0.1);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.location-detail-text h4 {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.2rem;
+}
+
+.location-detail-text p, .location-detail-text a {
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.location-detail-text a:hover {
+  color: var(--accent);
+}
+
+.map-wrapper {
+  width: 100%;
+  height: 400px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   17. FOOTER INSTITUCIONAL
+   Dados cadastrais completos (OAB, CNPJ), contatos oficiais e redes sociais.
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--primary);
+  color: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 4.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+@media (max-width: 991px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.footer-brand img {
+  height: 44px;
+  width: auto;
+  margin-bottom: 1.25rem;
+}
+
+.footer-brand p {
+  font-size: 0.925rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.5rem;
+}
+
+.footer-legal-badge {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-col-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.footer-contact-item svg {
+  color: var(--accent-light);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.footer-contact-item a:hover {
+  color: var(--accent-light);
+}
+
+.footer-social-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.social-btn:hover {
+  background-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   18. BOTÃO WHATSAPP FLUTUANTE COM BALÃO INTERATIVO E MÁSCARA CIRCULAR
+   Atende rigorosamente aos extras solicitados:
+   - Mini balão com mensagem curta no hover
+   - Logo oficial do escritório em máscara de círculo (foto de perfil)
+   - Ajuste em todas as telas desktop e mobile
+   - Classe elementor_button para traqueamento GTM
+   -------------------------------------------------------------------------- */
+.floating-whatsapp-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Mini Balão de Conversa (Tooltip no Hover / Foco) */
+.whatsapp-balloon {
+  background: #ffffff;
+  color: var(--foreground);
+  border-radius: var(--radius-lg);
+  padding: 0.9rem 1.15rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  max-width: 270px;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.95);
+  transition: opacity var(--transition-normal), transform var(--transition-normal), visibility var(--transition-normal);
+  pointer-events: none;
+  position: relative;
+}
+
+.whatsapp-balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 22px;
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transform: rotate(45deg);
+}
+
+/* Máscara Circular com Logo do Escritório */
+.whatsapp-profile-mask {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.whatsapp-profile-mask img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.whatsapp-balloon-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.whatsapp-balloon-header {
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.whatsapp-balloon-msg {
+  font-size: 0.825rem;
+  color: var(--muted-foreground);
+  line-height: 1.35;
+  margin-top: 0.15rem;
+}
+
+/* Efeito Hover abre o Balão */
+.floating-whatsapp-container:hover .whatsapp-balloon,
+.floating-whatsapp-container.show-balloon .whatsapp-balloon {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* Botão Flutuante Circular */
+.floating-whatsapp-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #25d366; /* Verde Oficial do WhatsApp */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  position: relative;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.floating-whatsapp-btn svg {
+  width: 32px;
+  height: 32px;
+}
+
+.floating-whatsapp-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55);
+}
+
+/* Pulso animado atrás do botão */
+.floating-whatsapp-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #25d366;
+  opacity: 0.4;
+  z-index: -1;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.6; }
+  50% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   19. RESPONSIVIDADE COMPLETA PARA SMARTPHONES E BOTÕES EM TELAS MOBILE
+   Garante visual impecável, touch targets confortáveis e alinhamentos simétricos
+   em todos os modelos de celular (iPhone, Galaxy, telas de 320px a 768px).
+   -------------------------------------------------------------------------- */
+
+/* Botão CTA exclusivo do menu mobile (oculto no desktop) */
+.mobile-nav-cta {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .mobile-nav-cta {
+    display: inline-flex;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 0.5rem;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 4px 14px var(--accent-glow);
+  }
+}
+
+/* Ajustes para Tablets e Celulares (Até 768px) */
+@media (max-width: 768px) {
+  /* Espaçamento das seções no mobile */
+  .section-padding {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 5.8vw, 2.15rem);
+    margin-bottom: 0.85rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 2.25rem;
+    line-height: 1.6;
+  }
+
+  /* ------------------------------------------------------------------------
+     PADRONIZAÇÃO GERAL DOS BOTÕES DE CONVERSÃO NO MOBILE
+     Garante 100% de largura, altura uniforme (52px), bordas em cápsula e
+     alinhamento flexbox simétrico para evitar qualquer distorção em celulares.
+     ------------------------------------------------------------------------ */
+  .hero-actions,
+  .reopen-actions,
+  .cta-banner-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.85rem !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions .elementor_button,
+  .hero-actions .btn-primary,
+  .hero-actions .btn-white,
+  .hero-actions .btn-outline,
+  .hero-actions .btn-triagem,
+  .reopen-actions .elementor_button,
+  .reopen-actions .btn-primary,
+  .reopen-actions .btn-white,
+  .reopen-actions .btn-outline,
+  .reopen-actions .btn-triagem,
+  .cta-banner-actions .elementor_button,
+  .cta-banner-actions .btn-primary,
+  .cta-banner-actions .btn-white,
+  .cta-banner-actions .btn-outline,
+  .cta-banner-actions .btn-triagem {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 52px !important;
+    padding: 0.95rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    border-radius: var(--radius-pill) !important;
+  }
+
+  /* Ajustes da Hero Section no Mobile */
+  .hero-section {
+    padding-top: 6rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.7rem, 6.4vw, 2.3rem);
+    line-height: 1.25;
+    margin-bottom: 1.15rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.85rem;
+  }
+
+  .hero-social-proof {
+    font-size: 0.775rem;
+    padding: 0.4rem 0.9rem;
+    gap: 0.45rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .hero-trust-bar {
+    font-size: 0.775rem;
+    gap: 0.5rem;
+    padding-top: 1.25rem;
+    line-height: 1.5;
+  }
+
+  /* Card da Seção de Reabertura de Triagem */
+  .reopen-box {
+    padding: 2.25rem 1.25rem !important;
+  }
+
+  .reopen-box h3 {
+    font-size: 1.35rem !important;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+  }
+
+  .reopen-box p {
+    font-size: 0.925rem !important;
+    line-height: 1.55;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Banner CTA Final */
+  .cta-banner-section {
+    padding: 3.8rem 1.25rem;
+  }
+
+  .cta-banner-title {
+    font-size: clamp(1.65rem, 5.8vw, 2.2rem);
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .cta-banner-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+}
+
+/* Smartphones e Telas Estreitas (Até 640px) */
+@media (max-width: 640px) {
+  .site-header {
+    padding: 0.65rem 0;
+  }
+
+  .header-logo img {
+    height: 32px;
+  }
+
+  /* Oculta botão da barra superior estreita para priorizar logo e menu */
+  .site-header .header-cta-btn {
+    display: none;
+  }
+
+  .container {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+
+  .service-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .differential-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .process-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .location-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .map-wrapper {
+    height: 260px;
+  }
+
+  .faq-question {
+    padding: 1.1rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .faq-answer {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+}
+
+/* Telas Compactas (Até 576px) */
+@media (max-width: 576px) {
+  .quick-id-bar {
+    padding: 1.75rem 0;
+  }
+
+  .quick-id-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
+  .quick-id-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-id-text {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  /* Botão Flutuante do WhatsApp adaptado para celulares */
+  .floating-whatsapp-container {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .floating-whatsapp-btn {
+    width: 54px;
+    height: 54px;
+  }
+
+  .floating-whatsapp-btn svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .whatsapp-balloon {
+    max-width: 245px;
+    padding: 0.75rem 0.9rem;
+    right: 0;
+  }
+
+  .whatsapp-profile-mask {
+    width: 38px;
+    height: 38px;
+  }
+
+  .whatsapp-balloon-msg {
+    font-size: 0.775rem;
+  }
+}
+
+/* Telas Pequenas (Até 480px) */
+@media (max-width: 480px) {
+  .about-metrics-grid {
+    gap: 0.75rem;
+  }
+
+  .about-metric-card {
+    padding: 1.25rem 0.65rem;
+  }
+
+  .metric-number {
+    font-size: 1.75rem;
+  }
+
+  .metric-label {
+    font-size: 0.775rem;
+  }
+}
+
+/* Telas Ultra-Compactas (ex: iPhone SE, Galaxy Fold dobrado - até 360px) */
+@media (max-width: 360px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .hero-title {
+    font-size: 1.55rem;
+  }
+
+  .elementor_button,
+  .btn-primary,
+  .btn-white,
+  .btn-outline,
+  .btn-triagem {
+    padding: 0.85rem 1rem !important;
+    font-size: 0.875rem !important;
+    min-height: 48px !important;
+    gap: 0.45rem !important;
+  }
+
+  .about-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

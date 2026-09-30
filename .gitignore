@@ -1,0 +1,6 @@
+# Arquivo de configuração do Git para ignorar arquivos temporários e do sistema operacional
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
