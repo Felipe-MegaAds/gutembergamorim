@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CHATBOT.JS - MOTOR DO CHATBOT COM A ATENDENTE VIRTUAL MARIA
+   CHATBOT.JS - MOTOR DO CHATBOT COM O ATENDENTE VIRTUAL BENILDO
    Gutemberg Amorim Advocacia Especializada em Golpes Financeiros
    Atendimento humanizado, acolhedor e seguro com cálculo de emojis (🔴 🟡 🔵)
    e redirecionamento estruturado para o WhatsApp com traqueamento GTM.
@@ -58,11 +58,14 @@ const chatbotState = {
 };
 
 /**
- * Configuração dos números de WhatsApp e mensagens padrão
+ * Configuração dos números de WhatsApp e atrasos de digitação humanizada
+ * - delayShortMs: 2000ms (2 segundos) para respostas menores e objetivas
+ * - delayLongMs: 3000ms (3 segundos) para respostas maiores e explicativas
  */
 const CHATBOT_CONFIG = {
   whatsappNumber: '5562981751315', // Telefone oficial do Dr. Gutemberg Amorim
-  typingDelayMs: 780 // Tempo calibrado para simular digitação e leitura humana atenciosa
+  delayShortMs: 2000, // Delay de 2 segundos para respostas menores simulando digitação humana
+  delayLongMs: 3000   // Delay de 3 segundos para respostas maiores simulando digitação humana
 };
 
 /**
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Função principal de inicialização do Chatbot
- * Configura containers, eventos e inicia a primeira pergunta da atendente Maria.
+ * Configura containers, eventos e inicia a primeira pergunta do atendente Benildo.
  */
 function initChatbot() {
   const chatBody = document.getElementById('chatBody');
@@ -93,7 +96,7 @@ function initChatbot() {
   
   if (!chatBody || !chatActionArea) return;
 
-  // Inicia a primeira etapa com apresentação da Maria
+  // Inicia a primeira etapa com apresentação do atendente Benildo
   renderStep(1);
 
   // Abre a janela do chatbot em tela cheia antes da landing page
@@ -157,23 +160,42 @@ function scrollToBottom() {
 }
 
 /**
- * Simula a digitação atenciosa e humanizada da atendente Maria
+ * Simula a digitação atenciosa e humanizada do atendente virtual Benildo
+ * Aplica delay de 2 segundos para respostas menores e 3 segundos para respostas maiores
  * @param {Function} callback - Ação disparada ao término da digitação
+ * @param {string|number} [durationOrType='short'] - 'short' (2s), 'long' (3s), milissegundos ou texto da resposta
  */
-function showTypingIndicator(callback) {
+function showTypingIndicator(callback, durationOrType = 'short') {
   const chatBody = document.getElementById('chatBody');
   if (!chatBody) return;
 
+  // Define dinamicamente o tempo de digitação (2s para menor, 3s para maior)
+  let delay = CHATBOT_CONFIG.delayShortMs;
+  if (durationOrType === 'long' || durationOrType === 3000) {
+    delay = CHATBOT_CONFIG.delayLongMs; // 3 segundos para respostas mais longas
+  } else if (durationOrType === 'short' || durationOrType === 2000) {
+    delay = CHATBOT_CONFIG.delayShortMs; // 2 segundos para respostas mais curtas
+  } else if (typeof durationOrType === 'number') {
+    delay = durationOrType;
+  } else if (typeof durationOrType === 'string') {
+    // Caso receba uma mensagem direta em string, calcula pelo volume do texto (acima de 200 chars = 3s)
+    const cleanText = durationOrType.replace(/<[^>]*>/g, '').trim();
+    delay = cleanText.length > 200 ? CHATBOT_CONFIG.delayLongMs : CHATBOT_CONFIG.delayShortMs;
+  }
+
+  // Cria o balão de digitação humanizada com a foto e nome do Benildo
   const typingRow = document.createElement('div');
   typingRow.className = 'chat-msg-row bot-msg-row';
   typingRow.id = 'botTypingIndicator';
   typingRow.innerHTML = `
-    <div class="chat-bot-avatar-mini" title="Maria Silva">
-      <img src="images/maria-atendente.jpg" alt="Maria Silva">
+    <div class="chat-bot-avatar-mini" title="Benildo">
+      <!-- Foto oficial do atendente Benildo -->
+      <img src="images/atendente.jpeg" alt="Benildo">
     </div>
     <div class="chat-bubble-container">
       <div class="typing-indicator-box">
-        <span class="typing-text">Maria está digitando</span>
+        <!-- Indicador humanizado de digitação ativa -->
+        <span class="typing-text">Benildo está digitando</span>
         <div class="typing-dots">
           <span></span><span></span><span></span>
         </div>
@@ -184,17 +206,18 @@ function showTypingIndicator(callback) {
   chatBody.appendChild(typingRow);
   scrollToBottom();
 
+  // Remove a animação de digitação e exibe a mensagem após o delay estipulado
   setTimeout(() => {
     const existingTyping = document.getElementById('botTypingIndicator');
     if (existingTyping) existingTyping.remove();
 
     if (callback) callback();
-  }, CHATBOT_CONFIG.typingDelayMs);
+  }, delay);
 }
 
 /**
- * Insere a mensagem enviada pela atendente virtual Maria no feed
- * @param {string} text - Conteúdo da mensagem
+ * Insere a mensagem enviada pelo atendente virtual Benildo no feed do chat
+ * @param {string} text - Conteúdo formatado da mensagem
  */
 function appendBotMessage(text) {
   const chatBody = document.getElementById('chatBody');
@@ -204,11 +227,13 @@ function appendBotMessage(text) {
   const msgRow = document.createElement('div');
   msgRow.className = 'chat-msg-row bot-msg-row';
   msgRow.innerHTML = `
-    <div class="chat-bot-avatar-mini" title="Maria Silva · Concierge Jurídica">
-      <img src="images/maria-atendente.jpg" alt="Maria Silva">
+    <div class="chat-bot-avatar-mini" title="Benildo · Concierge Jurídico">
+      <!-- Foto oficial do atendente Benildo -->
+      <img src="images/atendente.jpeg" alt="Benildo">
     </div>
     <div class="chat-bubble-container">
-      <span class="chat-sender-tag">Maria Silva · Concierge Jurídica</span>
+      <!-- Identificação do atendente oficial Benildo -->
+      <span class="chat-sender-tag">Benildo · Concierge Jurídico</span>
       <div class="chat-bubble bot-bubble">
         ${text}
       </div>
@@ -246,7 +271,7 @@ function appendUserMessage(text) {
 
 /**
  * Renderizador mestre das etapas do Chatbot
- * Conduz o usuário através das 7 perguntas com acolhimento humanizado da atendente Maria
+ * Conduz o usuário através das 7 perguntas com acolhimento humanizado do atendente Benildo
  * @param {number} step - Etapa atual
  */
 function renderStep(step) {
@@ -260,11 +285,12 @@ function renderStep(step) {
   switch (step) {
     /* ---------------------------------------------------------
        ETAPA 1: Você caiu em qual Golpe?
-       Apresentação calorosa da Maria e opções refinadas com ícones
+       Apresentação calorosa de Benildo e opções com ícones (resposta maior: delay 3s)
        --------------------------------------------------------- */
     case 1:
+      // Resposta explicativa maior com acolhimento e apresentação: delay de 3 segundos
       showTypingIndicator(() => {
-        appendBotMessage(`Olá! Seja muito bem-vindo(a). Meu nome é <strong>Maria Silva</strong>, sou a concierge jurídica do <strong>Dr. Gutemberg Amorim</strong>.<br><br>Sei o quanto ser vítima de um golpe bancário traz angústia e sensação de impotência, mas quero que saiba que você não está sozinho(a): as instituições financeiras têm responsabilidade objetiva pela segurança das transações.<br><br>Para que eu possa registrar as particularidades do seu caso e organizar sua triagem prioritária, me conte:<br><br><strong>1. Em qual dessas fraudes você caiu?</strong>`);
+        appendBotMessage(`Olá! Seja muito bem-vindo(a). Meu nome é <strong>Benildo</strong>, sou o concierge jurídico do <strong>Dr. Gutemberg Amorim</strong>.<br><br>Sei o quanto ser vítima de um golpe bancário traz angústia e sensação de impotência, mas quero que saiba que você não está sozinho(a): as instituições financeiras têm responsabilidade objetiva pela segurança das transações.<br><br>Para que eu possa registrar as particularidades do seu caso e organizar sua triagem prioritária, me conte:<br><br><strong>1. Em qual dessas fraudes você caiu?</strong>`);
         
         actionArea.innerHTML = `
           <div class="chat-options-grid">
@@ -286,7 +312,7 @@ function renderStep(step) {
                 <div class="opt-icon-box">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
                 </div>
-                <span class="opt-title">Golpe do Falso Leilão de Veículos</span>
+                <span class="opt-title">Golpe do Falso Leilão de Veículos / imóvel</span>
               </div>
               <svg class="opt-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
             </button>
@@ -351,14 +377,15 @@ function renderStep(step) {
           </div>
         `;
         scrollToBottom();
-      });
+      }, 'long'); // Mensagem maior: delay de 3 segundos
       break;
 
     /* ---------------------------------------------------------
        ETAPA 2: Qual foi o valor do Golpe?
-       Resposta empática da Maria e cartões de valores refinados
+       Resposta empática de Benildo e cartões de valores (resposta maior: delay 3s)
        --------------------------------------------------------- */
     case 2:
+      // Resposta maior com explicação jurídica de urgência: delay de 3 segundos
       showTypingIndicator(() => {
         appendBotMessage(`Compreendo perfeitamente a sua situação. Em casos de fraudes bancárias, as primeiras horas são preciosas para as medidas urgentes de rastreamento e bloqueio judicial das contas receptoras.<br><br><strong>2. Qual foi o valor aproximado do prejuízo sofrido?</strong>`);
 
@@ -416,13 +443,15 @@ function renderStep(step) {
           </div>
         `;
         scrollToBottom();
-      });
+      }, 'long'); // Mensagem maior (orientação jurídica): delay de 3 segundos
       break;
 
     /* ---------------------------------------------------------
        ETAPA 3: Você fez o Boletim de Ocorrência?
+       Resposta menor: delay de 2 segundos
        --------------------------------------------------------- */
     case 3:
+      // Resposta menor com verificação do B.O.: delay de 2 segundos
       showTypingIndicator(() => {
         appendBotMessage(`Valor anotado com sigilo profissional. O registro formal do Boletim de Ocorrência é uma peça indispensável para instruir a tese de responsabilização objetiva contra o banco.<br><br><strong>3. Você já conseguiu registrar o Boletim de Ocorrência (B.O.)?</strong>`);
 
@@ -439,13 +468,15 @@ function renderStep(step) {
           </div>
         `;
         scrollToBottom();
-      });
+      }, 'short'); // Mensagem menor: delay de 2 segundos
       break;
 
     /* ---------------------------------------------------------
        ETAPA 4: Fez MED ou contestou junto ao Banco?
+       Resposta menor: delay de 2 segundos
        --------------------------------------------------------- */
     case 4:
+      // Resposta menor com verificação de contestação bancária: delay de 2 segundos
       showTypingIndicator(() => {
         appendBotMessage(`Perfeito. Toda tentativa de solução administrativa e contestação não acolhida pelo banco evidencia a falha na prestação do serviço da instituição financeira.<br><br><strong>4. Você acionou o MED (Mecanismo Especial de Devolução) ou contestou a transação junto ao seu Banco?</strong>`);
 
@@ -462,13 +493,15 @@ function renderStep(step) {
           </div>
         `;
         scrollToBottom();
-      });
+      }, 'short'); // Mensagem menor: delay de 2 segundos
       break;
 
     /* ---------------------------------------------------------
        ETAPA 5: Nome Completo
+       Resposta menor: delay de 2 segundos
        --------------------------------------------------------- */
     case 5:
+      // Resposta menor para abertura de protocolo: delay de 2 segundos
       showTypingIndicator(() => {
         appendBotMessage(`Ótimo! Agora vou abrir o seu protocolo oficial de atendimento para que o <strong>Dr. Gutemberg Amorim</strong> e nossa equipe jurídica assumam a análise do seu caso.<br><br><strong>5. Como posso te chamar? Qual é o seu Nome Completo?</strong>`);
 
@@ -488,13 +521,15 @@ function renderStep(step) {
           if (input) input.focus();
         }, 120);
         scrollToBottom();
-      });
+      }, 'short'); // Mensagem menor: delay de 2 segundos
       break;
 
     /* ---------------------------------------------------------
        ETAPA 6: E-mail
+       Resposta menor: delay de 2 segundos
        --------------------------------------------------------- */
     case 6:
+      // Resposta menor com acolhimento e coleta de e-mail: delay de 2 segundos
       showTypingIndicator(() => {
         appendBotMessage(`Muito prazer, <strong>${chatbotState.data.nome}</strong>! Conte conosco para reverter essa situação.<br><br><strong>6. Qual o seu melhor E-mail</strong> para receber a cópia do parecer técnico e o registro das orientações jurídicas?`);
 
@@ -514,13 +549,15 @@ function renderStep(step) {
           if (input) input.focus();
         }, 120);
         scrollToBottom();
-      });
+      }, 'short'); // Mensagem menor: delay de 2 segundos
       break;
 
     /* ---------------------------------------------------------
        ETAPA 7: WhatsApp com DDD
+       Resposta menor: delay de 2 segundos
        --------------------------------------------------------- */
     case 7:
+      // Resposta menor para coleta de WhatsApp: delay de 2 segundos
       showTypingIndicator(() => {
         appendBotMessage(`Perfeito! Para finalizarmos o seu dossiê e conectarmos você diretamente com o Dr. Gutemberg no canal mais ágil:<br><br><strong>7. Qual é o seu número de WhatsApp com DDD?</strong>`);
 
@@ -540,13 +577,15 @@ function renderStep(step) {
           if (input) input.focus();
         }, 120);
         scrollToBottom();
-      });
+      }, 'short'); // Mensagem menor: delay de 2 segundos
       break;
 
     /* ---------------------------------------------------------
-       ETAPA 8: Conclusão Humanizada da Maria e Botões de Conversão
+       ETAPA 8: Conclusão Humanizada de Benildo e Botões de Conversão
+       Resposta maior: delay de 3 segundos
        --------------------------------------------------------- */
     case 8:
+      // Resposta maior com resumo conclusivo da triagem: delay de 3 segundos
       showTypingIndicator(() => {
         appendBotMessage(`<strong>Excelente, ${chatbotState.data.nome}! Seu dossiê preliminar foi registrado e organizado com sucesso.</strong><br><br>As informações já foram compiladas para a análise jurídica individual do <strong>Dr. Gutemberg Amorim</strong>. Clique no botão abaixo para darmos continuidade imediata pelo WhatsApp oficial do escritório.`);
 
@@ -581,7 +620,7 @@ function renderStep(step) {
 
         // Dispara o evento de lead concluído no dataLayer
         pushLeadToDataLayer();
-      });
+      }, 'long'); // Mensagem maior (conclusão do dossiê): delay de 3 segundos
       break;
   }
 }

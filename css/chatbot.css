@@ -1,7 +1,7 @@
 /* ==========================================================================
-   CHATBOT.CSS - ATENDENTE VIRTUAL MARIA (GUTEMBERG AMORIM ADVOCACIA)
+   CHATBOT.CSS - ATENDENTE VIRTUAL BENILDO (GUTEMBERG AMORIM ADVOCACIA)
    Interface refinada, humanizada e de alto luxo, com perfil profissional
-   da atendente Maria Silva, balões dinâmicos com foto, timestamps,
+   do atendente Benildo, balões dinâmicos com foto, timestamps,
    indicador de digitação humano e micro-interações táteis nos botões.
    ========================================================================== */
 
@@ -24,7 +24,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. CABEÇALHO HUMANIZADO DA ATENDENTE MARIA SILVA
+   2. CABEÇALHO HUMANIZADO DO ATENDENTE BENILDO
    Avatar profissional realista, anel de status pulsante e selos oficiais.
    -------------------------------------------------------------------------- */
 .chatbot-header {
@@ -45,7 +45,7 @@
   gap: 0.95rem;
 }
 
-/* Avatar da Maria com Anel de Status Conectado */
+/* Avatar do Benildo com Anel de Status Conectado */
 .chatbot-avatar-wrap {
   position: relative;
   width: 48px;
@@ -236,7 +236,7 @@
   }
 }
 
-/* Avatar da Maria nas mensagens do chat */
+/* Avatar do Benildo nas mensagens do chat */
 .chat-bot-avatar-mini {
   width: 38px;
   height: 38px;
@@ -270,7 +270,7 @@
   margin-left: 0.35rem;
 }
 
-/* Balão da Atendente Maria */
+/* Balão do Atendente Benildo */
 .chat-bubble.bot-bubble {
   background: #ffffff;
   color: var(--foreground);
@@ -317,7 +317,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. INDICADOR DE DIGITAÇÃO HUMANIZADO (MARIA ESTÁ DIGITANDO...)
+   5. INDICADOR DE DIGITAÇÃO HUMANIZADO (BENILDO ESTÁ DIGITANDO...)
    -------------------------------------------------------------------------- */
 .typing-indicator-box {
   display: inline-flex;
@@ -868,7 +868,7 @@
     gap: 0.35rem;
   }
 
-  /* Cabeçalho Humanizado da Atendente Maria no Mobile */
+  /* Cabeçalho Humanizado do Atendente Benildo no Mobile */
   .chatbot-header {
     padding: 0.75rem 0.95rem;
   }
@@ -900,7 +900,7 @@
     margin-top: 0.15rem;
   }
 
-  /* Oculta selo pesado no mobile para dar respiro aos dados da Maria */
+  /* Oculta selo pesado no mobile para dar respiro aos dados do Benildo */
   .chatbot-header-secure {
     display: none;
   }
